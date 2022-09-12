@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     const elementosCarousel = document.querySelectorAll('.carousel');
-    M.Carousel.init(elementosCarousel, {
+    var instances = M.Carousel.init(elementosCarousel, {
         duration: 150,
         shift: 5,
         padding: 5,
@@ -18,13 +18,23 @@ function movieSearch (title) {
         })
         .then (function (data) {
             console.log(data);
-            console.log(data.Search[0].Title);
-            // for(i=0; i < 10; i++) {
-            //     $('#container')
-            //         .prepend('<img src = '+ data.Search[i].Poster + '>')
-            //         .prepend('<p>'+data.Search[i].Title+'</p>');
+            
+            $("#movie-carousel").empty();
 
-            // }
+            for(i=0; i < 10; i++) {
+                $("#movie-carousel")
+                    .append('<a class="carousel-item"><img src='+data.Search[i].Poster+'></a>')                
+            }
+
+            elementosCarousel = document.querySelectorAll('.carousel');
+            instances = M.Carousel.init(elementosCarousel, {
+                    duration: 150,
+                    shift: 5,
+                    padding: 5,
+                    numVisible: 5,
+
+            });
+
             // if (data.totalRestults > 10) {
             //     $('#container')
             //         .append('<button id = next>Next</button>')
