@@ -74,7 +74,7 @@ formMovie.addEventListener('submit', function(e){
 
 function musicDisplay(data) {
     console.log(data);
-    // ! This needs to be worked on
+    // ! This needs to be worked on - similar to the music carousel
     // for(i=0; i < data.Search.length; i++) {
     //     $("#music-carousel")
     //         .append('<a class="carousel-item" data-item ='+i+'><img src='+data.Search[i].Poster+'></a>')
