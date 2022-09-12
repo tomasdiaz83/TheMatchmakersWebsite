@@ -69,6 +69,6 @@ form.addEventListener('submit', function(e){
     //clear form
     input.value = "";
 
-    //get weather
+    //get movies
     movieSearch(movie);
 })
