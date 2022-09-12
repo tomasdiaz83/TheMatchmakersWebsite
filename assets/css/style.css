@@ -1,0 +1,48 @@
+body{
+    background-image: url(../img/background.jpeg);
+    background-size: cover;      
+}
+.card{
+    margin-top: 50px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.input-field label{
+    font-size: 20px;
+}
+
+.carousel {
+    min-width: 500px;
+    max-height: 500px;
+}
+.carousel .carousel-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    width: 300px;
+    height: 300px;
+    margin: 50px;
+}
+
+.carousel .carousel-item img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+.buscador{
+    border-radius: 10px;
+}
+
+
+@media screen and (min-width: 500px){
+	.logo img {
+		width: 100%;
+        margin-top: 30px;
+	}
+}
+
