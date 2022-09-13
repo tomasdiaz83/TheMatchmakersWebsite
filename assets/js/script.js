@@ -51,6 +51,12 @@ function posterDisplay (data) {
     });   
 }
 
+function albumDataDisplay(albumInfo, y) {
+    console.log(albumInfo);
+    console.log(y);
+    console.log(albumInfo[y].Title);
+}
+
 // ! display movie information -- Incomplete
 function movieDataDisplay(movieInfo, y) {
     console.log(movieInfo);
@@ -82,7 +88,7 @@ function albumDisplay(data) {
             .append('<a class="carousel-item" data-item ='+i+'><img src='+data.albums.items[i].data.coverArt.sources[0].url+'></a>')
         $('#item'+i)
             .click(function() {
-                
+                albumDataDisplay(data.albums.items, this.dataset.item)
             })
     }
 
