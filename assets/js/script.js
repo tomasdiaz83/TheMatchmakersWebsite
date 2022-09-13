@@ -72,17 +72,19 @@ formMovie.addEventListener('submit', function(e){
     movieSearch(movie);
 })
 
-function musicDisplay(data) {
+function albumDisplay(data) {
     console.log(data);
-    // ! This needs to be worked on - similar to the music carousel
-    // for(i=0; i < data.Search.length; i++) {
-    //     $("#music-carousel")
-    //         .append('<a class="carousel-item" data-item ='+i+'><img src='+data.Search[i].Poster+'></a>')
-    //     $('#item'+i)
-    //         .click(function() {
+    
+    $("#music-carousel").empty();
+
+    for(i=0; i < 10; i++) {
+        $("#music-carousel")
+            .append('<a class="carousel-item" data-item ='+i+'><img src='+data.albums.items[i].data.coverArt.sources[0].url+'></a>')
+        $('#item'+i)
+            .click(function() {
                 
-    //         })
-    // }
+            })
+    }
 
     elementosCarousel = document.querySelectorAll('.carousel');
     instances = M.Carousel.init(elementosCarousel, {
@@ -95,7 +97,7 @@ function musicDisplay(data) {
 }
 
 //music API testing
-function musicSearch () {
+function musicSearch (artist) {
     const options = {
         method: 'GET',
         headers: {
@@ -104,10 +106,10 @@ function musicSearch () {
         }
     };
     
-    fetch('https://spotify23.p.rapidapi.com/search/?q=love&type=multi&offset=0&limit=10&numberOfTopResults=5', options)
+    fetch('https://spotify23.p.rapidapi.com/search/?q='+artist+'&type=artist&offset=2&limit=10&numberOfTopResults=5', options)
         .then(response => response.json())
         .then(function (data) {
-            musicDisplay(data);   
+            albumDisplay(data);   
         })
         .catch(err => console.error(err));
 }
