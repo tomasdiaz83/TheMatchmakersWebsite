@@ -10,21 +10,32 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
 });
 
-//variables
+//HTML variables
 var formMovie = document.querySelector('#movieSearch');
 var inputMovie = document.querySelector('#movieInput');
 var formMusic = document.querySelector('#musicSearch');
 var inputMusic = document.querySelector('#musicInput');
-//search for movies
-function movieSearch (title) {
-    fetch ('http://www.omdbapi.com/?s='+title+'&type=movie&page=1&apikey=70c6cc67')
-        .then (function (response) {
-            return response.json();
-        })
-        .then (function (data) {
-            posterDisplay(data);
-            
-        })
+var movieSelector = document.querySelector('#movie-selector');
+
+//array for paired selections
+var selectedPair = {
+    Movie : {
+        Title : '',
+        imdbLink : '',
+        Poster : ''
+    },
+    Album : {
+        Title : '',
+        Link : '',// ! WHAT ARE WE GOING TO USE FOR A LINK
+        AlbumCover : ''
+    }
+};
+
+// ! display movie information in card -- Incomplete
+function movieDataDisplay(movieInfo, y) {
+    console.log(movieInfo);
+    console.log(y);
+    console.log(movieInfo[y].Title);
 }
 
 //display posters in carousel
@@ -52,18 +63,26 @@ function posterDisplay (data) {
     });   
 }
 
-function albumDataDisplay(albumInfo, y) {
-    console.log(albumInfo);
-    console.log(y);
-    console.log(albumInfo[y].Title);
+//movie api fetch
+function movieSearch (title) {
+    fetch ('http://www.omdbapi.com/?s='+title+'&type=movie&page=1&apikey=70c6cc67')
+        .then (function (response) {
+            return response.json();
+        })
+        .then (function (data) {
+            posterDisplay(data);
+        })
 }
 
-// ! display movie information -- Incomplete
-function movieDataDisplay(movieInfo, y) {
-    console.log(movieInfo);
-    console.log(y);
-    console.log(movieInfo[y].Title);
-}
+//add selected movie to pair
+movieSelector.addEventListener('click', function() {
+    selectedPair.Movie.Title = document.getElementById('active-movie-title').textContent;
+    selectedPair.Movie.imdbLink = document.getElementById('active-movie-link').textContent;
+    selectedPair.Movie.Poster = document.getElementById('active-movie-poster').src;
+    
+    console.log(selectedPair);
+})
+    
 
 //accepting information from movie title search
 formMovie.addEventListener('submit', function(e){
@@ -79,6 +98,14 @@ formMovie.addEventListener('submit', function(e){
     movieSearch(movie);
 })
 
+// ! display albums information in card -- Incomplete
+function albumDataDisplay(albumInfo, y) {
+    console.log(albumInfo);
+    console.log(y);
+    console.log(albumInfo[y].Title);
+}
+
+//displaying albums in carousel
 function albumDisplay(data) {
     console.log(data);
     
@@ -103,7 +130,7 @@ function albumDisplay(data) {
     });
 }
 
-//music API testing
+//music API fetch
 function musicSearch (artist) {
     const options = {
         method: 'GET',
@@ -121,6 +148,7 @@ function musicSearch (artist) {
         .catch(err => console.error(err));
 }
 
+//getting music information from user
 formMusic.addEventListener('submit', function(e){
     e.preventDefault();
 
