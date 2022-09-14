@@ -23,7 +23,7 @@ body{
     user-select: none;
     width: 300px;
     height: 300px;
-    margin: 50px;
+    margin: 3px;
 }
 
 .carousel .carousel-item img{
@@ -32,8 +32,13 @@ body{
     position: absolute;
     top: 0;
     left: 0;
-
 }
+
+.card-image{
+    width: 20%;
+    height: 20%;
+}
+
 .buscador{
     border-radius: 10px;
 }
