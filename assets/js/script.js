@@ -32,18 +32,20 @@ var selectedPair = {
 };
 
 // ! display movie information in card -- Incomplete
-function movieDataDisplay(movieInfo, y) {
-    // console.log(movieInfo);
-    // console.log(y);
-    // console.log(movieInfo[y].Title);
-    // console.log(movieInfo[y].Poster);
-    // console.log($('#active-movie-poster').src);
-    $('#active-movie-poster').attr('src',movieInfo[y].Poster);
-    $('#active-movie-title').html(movieInfo[y].Title);
-    $('#active-year').html(movieInfo[y].Year);
+function movieDataDisplay(movie) {
+    fetch ('http://www.omdbapi.com/?i='+movie+'&type=movie&apikey=70c6cc67&plot=short')
+        .then (function (response) {
+            return response.json();
+        })
+        .then (function (data) {
+            $('#active-movie-poster').attr('src',data.Poster);
+            $('#active-movie-title').html(data.Title);
+            $('#active-movie-year').html(data.Year);
+            $('#active-movie-plot').html(data.Plot);
+            $('#active-movie-imdb').html("<a href = 'https://www.imdb.com/title/"+data.imdbID+"' target = '_blank'>IMDB Data</a>");
+        })
 
     // console.log(movieInfo[y].Plot);
-    // $('#movie-plot').html(movieInfo[y].Plot);
     
 
 }
@@ -59,7 +61,7 @@ function posterDisplay (data) {
             .append('<a class="carousel-item" id = "item'+i+'" data-item ='+i+'><img src='+data.Search[i].Poster+'></a>')
         $('#item'+i)
             .click(function() {
-                movieDataDisplay(data.Search, this.dataset.item);
+                movieDataDisplay(data.Search[this.dataset.item].imdbID);
             })
     }
 
