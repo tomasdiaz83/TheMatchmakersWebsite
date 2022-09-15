@@ -51,36 +51,6 @@
                 <a class="carousel-item" href="#ten!"><img src="./assets/img/poster/10.jpeg"></a>
             </div>
 
-            <!-- ---------------------SEARCH FOR MUSIC------------------------
-            <div class="row form-search ">
-                <div class="input-field col s3"> </div>
-                <div class="input-field buscador col s6 brown darken-4 white-text center-align">
-                    <form id="musicSearch">
-                        <i class="material-icons prefix ">search</i>
-                        <input type="text" id="musicInput" class="autocomplete">
-                        <label for="search">Search music artist</label>
-                    </form>
-                </div>
-                
-            </div>
-               
-            -------------------CAROUSEL FOR MUSIC-------------------------
-            <div class="carousel card center-align" id="music-carousel">
-
-                <a class="carousel-item" href="#one!"><img src="./assets/img/poster/1.jpeg"></a>
-                <a class="carousel-item" href="#two!"><img src="./assets/img/poster/2.jpeg"></a>
-                <a class="carousel-item" href="#three!"><img src="./assets/img/poster/3.jpeg"></a>
-                <a class="carousel-item" href="#four!"><img src="./assets/img/poster/4.jpeg"></a>
-                <a class="carousel-item" href="#five!"><img src="./assets/img/poster/5.jpeg"></a>
-                <a class="carousel-item" href="#six!"><img src="./assets/img/poster/6.jpeg"></a>
-                <a class="carousel-item" href="#seven!"><img src="./assets/img/poster/7.jpeg"></a>
-                <a class="carousel-item" href="#eight!"><img src="./assets/img/poster/8.jpeg"></a>
-                <a class="carousel-item" href="#nine!"><img src="./assets/img/poster/9.jpeg"></a>
-                <a class="carousel-item" href="#ten!"><img src="./assets/img/poster/10.jpeg"></a>
-            </div> -->
-
-
-
             <!-------------------------MOVIE CARD CONTENT--------------------------->
             <div class="row">
                 <div class="input-field col s1"> </div>
@@ -91,9 +61,10 @@
                         </div>
                         <div class="card-stacked">
                             <div class="card-content">
-                                <p id = "active-movie-title">Movie title: Vacaciones</p>
-                                <p>Year: 2021</p>
-                                <a id = "active-movie-link" href="#">Link: </a>
+                                <p id = "active-movie-title">Vacaciones</p>
+                                <p id= "active-movie-year">2021</p>
+                                <p id = "active-movie-plot"></p>
+                                <p id = "active-movie-imdb"></p>
                             </div>
                             <div class="card-action center-align">
                                 <a id = "movie-selector" class="waves-effect waves-light btn">Select movie</a>
@@ -113,7 +84,7 @@
                     <form id="musicSearch">
                         <i class="material-icons prefix ">search</i>
                         <input type="text" id="musicInput" class="autocomplete">
-                        <label for="search">Search music genre</label>
+                        <label for="search">Search music artist</label>
                     </form>
                 </div>
                 
@@ -141,14 +112,14 @@
                     <div class="input-field col s10"> 
                         <div class="card horizontal brown darken-4 white-text">
                             <div class="card-image">
-                                <img src="./assets/img/albums/1.jpeg">
+                                <img id='active-music-poster'src="./assets/img/albums/1.jpeg">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                    <p>Album: Havana</p>
-                                    <p>Singer: Camila Cabello</p>
-                                    <p>Genre: Pop</p>
-                                    <p>Year: 2017</p>
+                                    <p id="active-album">Album: Havana</p>
+                                    <p id="active-singer">Singer: Camila Cabello</p>
+                                    <p id="active-genre">Genre: Pop</p>
+                                    <p id="active-ano">Year: 2017</p>
                                     <a href="#">Link: </a>
                                 </div>
                                 <div class="card-action center-align">
