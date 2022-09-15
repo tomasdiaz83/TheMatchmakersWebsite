@@ -33,9 +33,19 @@ var selectedPair = {
 
 // ! display movie information in card -- Incomplete
 function movieDataDisplay(movieInfo, y) {
-    console.log(movieInfo);
-    console.log(y);
-    console.log(movieInfo[y].Title);
+    // console.log(movieInfo);
+    // console.log(y);
+    // console.log(movieInfo[y].Title);
+    // console.log(movieInfo[y].Poster);
+    // console.log($('#active-movie-poster').src);
+    $('#active-movie-poster').attr('src',movieInfo[y].Poster);
+    $('#active-movie-title').html(movieInfo[y].Title);
+    $('#active-year').html(movieInfo[y].Year);
+
+    // console.log(movieInfo[y].Plot);
+    // $('#movie-plot').html(movieInfo[y].Plot);
+    
+
 }
 
 //display posters in carousel
@@ -103,6 +113,7 @@ function albumDataDisplay(albumInfo, y) {
     console.log(albumInfo);
     console.log(y);
     console.log(albumInfo[y].Title);
+    console.log($('#active-music-poster').src);
 }
 
 //displaying albums in carousel
