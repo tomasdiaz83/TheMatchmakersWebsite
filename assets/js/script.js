@@ -58,7 +58,7 @@ function posterDisplay (data) {
 
     for(i=0; i < data.Search.length; i++) {
         $("#movie-carousel")
-            .append('<a class="carousel-item" id = "item'+i+'" data-item ='+i+'><img src='+data.Search[i].Poster+'></a>')
+            .append(`<a class= 'carousel-item' id = 'item${i}' data-item ='${i}'><img src='${data.Search[i].Poster}'></a>`)
         $('#item'+i)
             .click(function() {
                 movieDataDisplay(data.Search[this.dataset.item].imdbID);
@@ -112,10 +112,13 @@ formMovie.addEventListener('submit', function(e){
 
 // ! display albums information in card -- Incomplete
 function albumDataDisplay(albumInfo, y) {
-    console.log(albumInfo);
-    console.log(y);
-    console.log(albumInfo[y].Title);
-    console.log($('#active-music-poster').src);
+    var spotifyLink = albumInfo[y].data.uri;
+    spotifyLink = spotifyLink.split(":").pop();
+    
+    $('#active-music-poster').attr('src',albumInfo[y].data.coverArt.sources[0].url);
+    $('#active-album-title').html(albumInfo[y].data.name);
+    $('#active-artist').html(albumInfo[y].data.artists.items[0].profile.name);
+    $('#active-spotify-link').html(`<a href = https://open.spotify.com/album/${spotifyLink} target = '_blank'>Listen on Spotify</a>`);
 }
 
 //displaying albums in carousel
@@ -126,10 +129,10 @@ function albumDisplay(data) {
 
     for(i=0; i < 10; i++) {
         $("#music-carousel")
-            .append('<a class="carousel-item" data-item ='+i+'><img src='+data.albums.items[i].data.coverArt.sources[0].url+'></a>')
+            .append('<a class="carousel-item" id = "item'+i+'" data-item ='+i+'><img src='+data.albums.items[i].data.coverArt.sources[0].url+'></a>')
         $('#item'+i)
             .click(function() {
-                albumDataDisplay(data.albums.items, this.dataset.item)
+                albumDataDisplay(data.albums.items, this.dataset.item);
             })
     }
 
