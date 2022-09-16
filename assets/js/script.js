@@ -35,8 +35,8 @@ var selectedPair = {
 function displaySelections (selectedPair) {
     console.log(selectedPair);
     console.log("testing");
-    $('#selected-movie').src = selectedPair.Movie.Poster;
-    $('#selected-album').src = selectedPair.Album.Album;
+    $('#selected-movie').attr(`src`, `${selectedPair.Movie.Poster}`);
+    $('#selected-album').attr(`src`,`${selectedPair.Album.AlbumCover}`);
 }
 
 function movieDataDisplay(movie) {
