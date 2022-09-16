@@ -61,8 +61,8 @@ function posterDisplay(data) {
 
     for (i = 0; i < data.Search.length; i++) {
         $("#movie-carousel")
-            .append(`<a class= 'carousel-item' id = 'item${i}' data-item ='${i}'><img src='${data.Search[i].Poster}'></a>`)
-        $('#item' + i)
+            .append(`<a class= 'carousel-item' id = 'movie-item${i}' data-item ='${i}'><img src='${data.Search[i].Poster}'></a>`)
+        $('#movie-item' + i)
             .click(function () {
                 movieDataDisplay(data.Search[this.dataset.item].imdbID);
             })
@@ -98,7 +98,6 @@ movieSelector.addEventListener('click', function () {
     displaySelections(selectedPair);
 })
 
-
 //accepting information from movie title search
 formMovie.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -113,7 +112,6 @@ formMovie.addEventListener('submit', function (e) {
     movieSearch(movie);
 })
 
-// ! display albums information in card -- Incomplete
 function albumDataDisplay(albumInfo, y) {
     var spotifyLink = albumInfo[y].data.uri;
     spotifyLink = spotifyLink.split(":").pop();
@@ -126,14 +124,12 @@ function albumDataDisplay(albumInfo, y) {
 
 //displaying albums in carousel
 function albumDisplay(data) {
-    console.log(data);
-
     $("#music-carousel").empty();
 
     for (i = 0; i < 10; i++) {
         $("#music-carousel")
-            .append('<a class="carousel-item" id = "item' + i + '" data-item =' + i + '><img src=' + data.albums.items[i].data.coverArt.sources[0].url + '></a>')
-        $('#item' + i)
+            .append('<a class="carousel-item" id = "music-item' + i + '" data-item =' + i + '><img src=' + data.albums.items[i].data.coverArt.sources[0].url + '></a>')
+        $('#music-item' + i)
             .click(function () {
                 albumDataDisplay(data.albums.items, this.dataset.item);
             })
@@ -167,15 +163,6 @@ function musicSearch(artist) {
         .catch(err => console.error(err));
 }
 
-//add selected movie to pair
-albumSelector.addEventListener('click', function () {
-    selectedPair.Album.Title = document.getElementById('active-album-title').textContent;
-    selectedPair.Album.Link = document.getElementById('selected-spotify-link').href;
-    selectedPair.Album.AlbumCover = document.getElementById('active-music-poster').src;
-
-    displaySelections(selectedPair);
-})
-
 //getting music information from user
 formMusic.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -188,4 +175,13 @@ formMusic.addEventListener('submit', function (e) {
 
     //get movies
     musicSearch(music);
+})
+
+//add selected movie to pair
+albumSelector.addEventListener('click', function () {
+    selectedPair.Album.Title = document.getElementById('active-album-title').textContent;
+    selectedPair.Album.Link = document.getElementById('selected-spotify-link').href;
+    selectedPair.Album.AlbumCover = document.getElementById('active-music-poster').src;
+
+    displaySelections(selectedPair);
 })
