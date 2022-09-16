@@ -126,10 +126,11 @@ function albumDisplay(data) {
 
     for(i=0; i < 10; i++) {
         $("#music-carousel")
-            .append('<a class="carousel-item" data-item ='+i+'><img src='+data.albums.items[i].data.coverArt.sources[0].url+'></a>')
+            .append('<a class="carousel-item" id = "item'+i+'" data-item ='+i+'><img src='+data.albums.items[i].data.coverArt.sources[0].url+'></a>')
         $('#item'+i)
             .click(function() {
-                albumDataDisplay(data.albums.items, this.dataset.item)
+                console.log("test");
+                albumDataDisplay(data.albums.items, this.dataset.item);
             })
     }
 
