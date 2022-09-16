@@ -16,6 +16,7 @@ var inputMovie = document.querySelector('#movieInput');
 var formMusic = document.querySelector('#musicSearch');
 var inputMusic = document.querySelector('#musicInput');
 var movieSelector = document.querySelector('#movie-selector');
+var albumSelector = document.querySelector('#album-selector');
 
 //array for paired selections
 var selectedPair = {
@@ -26,7 +27,7 @@ var selectedPair = {
     },
     Album : {
         Title : '',
-        Link : '',// ! WHAT ARE WE GOING TO USE FOR A LINK
+        Link : '',
         AlbumCover : ''
     }
 };
@@ -89,7 +90,7 @@ function movieSearch (title) {
 //add selected movie to pair
 movieSelector.addEventListener('click', function() {
     selectedPair.Movie.Title = document.getElementById('active-movie-title').textContent;
-    selectedPair.Movie.imdbLink = document.getElementById('active-movie-link').textContent;
+    selectedPair.Movie.imdbLink = document.getElementById('active-movie-imdb').textContent;
     selectedPair.Movie.Poster = document.getElementById('active-movie-poster').src;
     
     console.log(selectedPair);
@@ -118,7 +119,7 @@ function albumDataDisplay(albumInfo, y) {
     $('#active-music-poster').attr('src',albumInfo[y].data.coverArt.sources[0].url);
     $('#active-album-title').html(albumInfo[y].data.name);
     $('#active-artist').html(albumInfo[y].data.artists.items[0].profile.name);
-    $('#active-spotify-link').html(`<a href = https://open.spotify.com/album/${spotifyLink} target = '_blank'>Listen on Spotify</a>`);
+    $('#active-spotify-link').html(`<a id = "selected-spotify-link" href = https://open.spotify.com/album/${spotifyLink} target = '_blank'>Listen on Spotify</a>`);
 }
 
 //displaying albums in carousel
@@ -163,6 +164,15 @@ function musicSearch (artist) {
         })
         .catch(err => console.error(err));
 }
+
+//add selected movie to pair
+albumSelector.addEventListener('click', function() {
+    selectedPair.Album.Title = document.getElementById('active-album-title').textContent;
+    selectedPair.Album.Link = document.getElementById('selected-spotify-link').href;
+    selectedPair.Album.AlbumCover = document.getElementById('active-music-poster').src;
+    
+    console.log(selectedPair);
+})
 
 //getting music information from user
 formMusic.addEventListener('submit', function(e){
