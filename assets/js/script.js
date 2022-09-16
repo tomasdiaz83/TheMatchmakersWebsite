@@ -17,6 +17,7 @@ var formMusic = document.querySelector('#musicSearch');
 var inputMusic = document.querySelector('#musicInput');
 var movieSelector = document.querySelector('#movie-selector');
 var albumSelector = document.querySelector('#album-selector');
+var pairSelector = document.querySelector('#pair-selector');
 
 //array for paired selections
 var selectedPair = {
@@ -32,11 +33,46 @@ var selectedPair = {
     }
 };
 
+//array of selected pairs
+const history = [];
+var storedHistory = JSON.parse(localStorage.getItem("history"));
+
+if (storedHistory !== null) {
+    history.push(...storedHistory);
+}
+
+function storeHistory () {
+    localStorage.setItem("history", JSON.stringify(history));
+}
+
+function displayHistory() {
+    $('#history-container').empty();
+
+    for (var i = 0; i < history.length; i++) {
+        $('#history-container')
+            .append(
+                `<div class = "row">
+                    <div class = "col s6">
+                        <a href = ${history[i].Movie.imdbLink} target = '_blank'>
+                            <img class = "responsive-img valign-wrapper center-align" src = ${history[i].Movie.Poster}>
+                        </a>
+                    </div>
+                    <div class = "col s6">
+                        <a href = ${history[i].Album.Link} target = '_blank'>
+                            <img class = "responsive-img valign-wrapper center-align" src = ${history[i].Album.AlbumCover}>
+                        </a>
+                    </div>
+                </div>`)
+    }
+}
+
 function displaySelections (selectedPair) {
-    console.log(selectedPair);
-    console.log("testing");
-    $('#selected-movie').attr(`src`, `${selectedPair.Movie.Poster}`);
-    $('#selected-album').attr(`src`,`${selectedPair.Album.AlbumCover}`);
+    $('#selected-movie').empty();
+    $('#selected-movie')
+        .append(`<img class = "responsive-img valign-wrapper center-align" src = "${selectedPair.Movie.Poster}">`);
+    $('#selected-album').empty();
+    $('#selected-album')
+        .append(`<img id = "selected-album" class = "responsive-img valign-wrapper center-align" src = ${selectedPair.Album.AlbumCover}>`);
 }
 
 function movieDataDisplay(movie) {
@@ -55,8 +91,6 @@ function movieDataDisplay(movie) {
 
 //display posters in carousel
 function posterDisplay(data) {
-    console.log(data);
-    console.log(data.Search.length);
     $("#movie-carousel").empty();
 
     for (i = 0; i < data.Search.length; i++) {
@@ -92,7 +126,7 @@ function movieSearch(title) {
 //add selected movie to pair
 movieSelector.addEventListener('click', function () {
     selectedPair.Movie.Title = document.getElementById('active-movie-title').textContent;
-    selectedPair.Movie.imdbLink = document.getElementById('active-movie-imdb').textContent;
+    selectedPair.Movie.imdbLink = document.getElementById('active-movie-imdb').href;
     selectedPair.Movie.Poster = document.getElementById('active-movie-poster').src;
 
     displaySelections(selectedPair);
@@ -177,11 +211,32 @@ formMusic.addEventListener('submit', function (e) {
     musicSearch(music);
 })
 
-//add selected movie to pair
+//add selected album to pair
 albumSelector.addEventListener('click', function () {
+    console.log("test");
     selectedPair.Album.Title = document.getElementById('active-album-title').textContent;
     selectedPair.Album.Link = document.getElementById('selected-spotify-link').href;
     selectedPair.Album.AlbumCover = document.getElementById('active-music-poster').src;
 
     displaySelections(selectedPair);
 })
+
+pairSelector.addEventListener('click', function(){
+    $("#selected-movie")
+        .empty();
+    $("#selected-album")
+        .empty();
+
+    history.unshift(selectedPair);
+
+    storeHistory();
+    displayHistory();
+})
+
+function initialize () {
+    movieSearch("You've Got Mail");
+    musicSearch("Barry Manilow");
+    displayHistory();
+}
+
+initialize();
