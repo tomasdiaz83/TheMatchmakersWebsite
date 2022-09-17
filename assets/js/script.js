@@ -222,7 +222,9 @@ pairSelector.addEventListener('click', function(){
     $("#selected-album")
         .empty();
 
-    history.unshift(selectedPair);
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        history.unshift(selectedPair);
+    }
 
     storeHistory();
     //displayHistory();
@@ -236,10 +238,24 @@ pairHistory.addEventListener('click', function(){
         .empty();
     $("#selected-album")
         .empty();
+    
 
-    history.unshift(selectedPair);
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        history.unshift(selectedPair);
+    }
+    
+    for (var i in selectedPair.Album) {
+        selectedPair.Album[i] = "";
+    }
 
-    storeHistory();
+    for (var j in selectedPair.Movie) {
+        selectedPair.Movie[j] = "";
+    }
+
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        console.log("test");
+        storeHistory();
+    }
     displayHistory();
     initialize();
 })
