@@ -80,7 +80,7 @@ function movieDataDisplay(movie) {
             $('#active-movie-title').html(data.Title);
             $('#active-movie-year').html(data.Year);
             $('#active-movie-plot').html(data.Plot);
-            $('#active-movie-imdb').html("<a href = 'https://www.imdb.com/title/" + data.imdbID + "' target = '_blank'>IMDB Data</a>");
+            $('#active-movie-imdb').html("<a id = 'movieLink' href = 'https://www.imdb.com/title/" + data.imdbID + "' target = '_blank'>IMDB Data</a>");
         })
 }
 
@@ -121,7 +121,7 @@ function movieSearch(title) {
 //add selected movie to pair
 movieSelector.addEventListener('click', function () {
     selectedPair.Movie.Title = document.getElementById('active-movie-title').textContent;
-    selectedPair.Movie.imdbLink = document.getElementById('active-movie-imdb').href;
+    selectedPair.Movie.imdbLink = document.getElementById('movieLink').href;
     selectedPair.Movie.Poster = document.getElementById('active-movie-poster').src;
 
     displaySelections(selectedPair);
@@ -227,7 +227,6 @@ pairSelector.addEventListener('click', function(){
     }
 
     storeHistory();
-    //displayHistory();
     initialize();
 
 })
@@ -243,7 +242,7 @@ pairHistory.addEventListener('click', function(){
     if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
         history.unshift(selectedPair);
     }
-    
+
     for (var i in selectedPair.Album) {
         selectedPair.Album[i] = "";
     }
