@@ -1,9 +1,11 @@
 body{
-    background-image: url(../img/background.jpeg);
+    background-image: url(../img/Dan.jpeg);
     background-size: cover;      
 }
+
 .card{
     margin-top: 50px;
+    margin-bottom: 50px;
     background: rgba(0, 0, 0, 0.6);
 }
 
@@ -11,6 +13,12 @@ body{
     font-size: 20px;
 }
 
+h2{
+    color: antiquewhite;
+    position: absolute;
+
+
+}
 .carousel {
     min-width: 500px;
     max-height: 500px;
@@ -42,6 +50,14 @@ body{
 .buscador{
     border-radius: 10px;
 }
+
+#selected-movie img {
+    width: 150px;
+    height: 150px;
+}
+
+
+
 
 
 @media screen and (min-width: 500px){
