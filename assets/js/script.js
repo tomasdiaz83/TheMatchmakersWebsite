@@ -1,5 +1,3 @@
-
-
 //HTML variables
 var formMovie = document.querySelector('#movieSearch');
 var inputMovie = document.querySelector('#movieInput');
@@ -12,6 +10,19 @@ var pairHistory = document.querySelector('#pair-history');
 
 //array for paired selections
 var selectedPair = {
+    Movie: {
+        Title: '',
+        imdbLink: '',
+        Poster: ''
+    },
+    Album: {
+        Title: '',
+        Link: '',
+        AlbumCover: ''
+    }
+};
+
+var emptySelectedPair = {
     Movie: {
         Title: '',
         imdbLink: '',
@@ -208,7 +219,6 @@ formMusic.addEventListener('submit', function (e) {
 
 //add selected album to pair
 albumSelector.addEventListener('click', function () {
-    console.log("test");
     selectedPair.Album.Title = document.getElementById('active-album-title').textContent;
     selectedPair.Album.Link = document.getElementById('selected-spotify-link').href;
     selectedPair.Album.AlbumCover = document.getElementById('active-music-poster').src;
@@ -216,15 +226,25 @@ albumSelector.addEventListener('click', function () {
     displaySelections(selectedPair);
 })
 
-pairSelector.addEventListener('click', function(){
+pairSelector.addEventListener('click', function(e){
+    e.preventDefault();
+    
+    console.log(selectedPair);
+    
     $("#selected-movie")
         .empty();
     $("#selected-album")
         .empty();
+    
+    console.log(selectedPair);
 
     if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
         history.unshift(selectedPair);
     }
+
+    console.log(selectedPair);
+
+    selectedPair = JSON.parse(JSON.stringify(emptySelectedPair));
 
     storeHistory();
     initialize();
@@ -238,23 +258,15 @@ pairHistory.addEventListener('click', function(){
     $("#selected-album")
         .empty();
     
-
     if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
         history.unshift(selectedPair);
-    }
-
-    for (var i in selectedPair.Album) {
-        selectedPair.Album[i] = "";
-    }
-
-    for (var j in selectedPair.Movie) {
-        selectedPair.Movie[j] = "";
     }
 
     if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
         console.log("test");
         storeHistory();
     }
+
     displayHistory();
     initialize();
 })
