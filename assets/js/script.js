@@ -82,7 +82,7 @@ function displaySelections (selectedPair) {
 
 
 function movieDataDisplay(movie) {
-    fetch('http://www.omdbapi.com/?i=' + movie + '&type=movie&apikey=70c6cc67&plot=short')
+    fetch('https://www.omdbapi.com/?i=' + movie + '&type=movie&apikey=70c6cc67&plot=short')
         .then(function (response) {
             return response.json();
         })
