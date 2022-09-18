@@ -120,7 +120,7 @@ function posterDisplay(data) {
 
 //movie api fetch
 function movieSearch(title) {
-    fetch('http://www.omdbapi.com/?s=' + title + '&type=movie&page=1&apikey=70c6cc67')
+    fetch('https://www.omdbapi.com/?s=' + title + '&type=movie&page=1&apikey=70c6cc67')
         .then(function (response) {
             return response.json();
         })
