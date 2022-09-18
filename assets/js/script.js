@@ -1,14 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const elementosCarousel = document.querySelectorAll('.carousel');
-    var instances = M.Carousel.init(elementosCarousel, {
-        duration: 150,
-        dist: -80,
-        shift: 5,
-        padding: 5,
-        numVisible: 10,
 
-    });
-});
 
 //HTML variables
 var formMovie = document.querySelector('#movieSearch');
@@ -18,6 +8,7 @@ var inputMusic = document.querySelector('#musicInput');
 var movieSelector = document.querySelector('#movie-selector');
 var albumSelector = document.querySelector('#album-selector');
 var pairSelector = document.querySelector('#pair-selector');
+var pairHistory = document.querySelector('#pair-history');
 
 //array for paired selections
 var selectedPair = {
@@ -51,29 +42,33 @@ function displayHistory() {
     for (var i = 0; i < history.length; i++) {
         $('#history-container')
             .append(
-                `<div class = "row">
-                    <div class = "col s6">
+                `<div class = "row ">
+                    <div class = "input-field col s2"></div>
+                    <div class = "input-field col s4">
                         <a href = ${history[i].Movie.imdbLink} target = '_blank'>
-                            <img class = "responsive-img valign-wrapper center-align" src = ${history[i].Movie.Poster}>
+                            <img class = "responsive-img center-align" src = ${history[i].Movie.Poster}>
                         </a>
                     </div>
-                    <div class = "col s6">
+                    <div class = "input-field col s4">
                         <a href = ${history[i].Album.Link} target = '_blank'>
-                            <img class = "responsive-img valign-wrapper center-align" src = ${history[i].Album.AlbumCover}>
+                            <img class = "responsive-img  center-align" src = ${history[i].Album.AlbumCover}>
                         </a>
                     </div>
+                    <div class = "input-field col s2"></div>
                 </div>`)
     }
+
 }
 
 function displaySelections (selectedPair) {
     $('#selected-movie').empty();
     $('#selected-movie')
-        .append(`<img class = "responsive-img valign-wrapper center-align" src = "${selectedPair.Movie.Poster}">`);
+        .append(`<img class = "responsive-img  center-align" src = "${selectedPair.Movie.Poster}">`);
     $('#selected-album').empty();
     $('#selected-album')
-        .append(`<img id = "selected-album" class = "responsive-img valign-wrapper center-align" src = ${selectedPair.Album.AlbumCover}>`);
+        .append(`<img class = "responsive-img  center-align" src = ${selectedPair.Album.AlbumCover}>`);
 }
+
 
 function movieDataDisplay(movie) {
     fetch('http://www.omdbapi.com/?i=' + movie + '&type=movie&apikey=70c6cc67&plot=short')
@@ -85,7 +80,7 @@ function movieDataDisplay(movie) {
             $('#active-movie-title').html(data.Title);
             $('#active-movie-year').html(data.Year);
             $('#active-movie-plot').html(data.Plot);
-            $('#active-movie-imdb').html("<a href = 'https://www.imdb.com/title/" + data.imdbID + "' target = '_blank'>IMDB Data</a>");
+            $('#active-movie-imdb').html("<a id = 'movieLink' href = 'https://www.imdb.com/title/" + data.imdbID + "' target = '_blank'>IMDB Data</a>");
         })
 }
 
@@ -126,7 +121,7 @@ function movieSearch(title) {
 //add selected movie to pair
 movieSelector.addEventListener('click', function () {
     selectedPair.Movie.Title = document.getElementById('active-movie-title').textContent;
-    selectedPair.Movie.imdbLink = document.getElementById('active-movie-imdb').href;
+    selectedPair.Movie.imdbLink = document.getElementById('movieLink').href;
     selectedPair.Movie.Poster = document.getElementById('active-movie-poster').src;
 
     displaySelections(selectedPair);
@@ -227,16 +222,78 @@ pairSelector.addEventListener('click', function(){
     $("#selected-album")
         .empty();
 
-    history.unshift(selectedPair);
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        history.unshift(selectedPair);
+    }
 
     storeHistory();
-    displayHistory();
+    initialize();
+
 })
 
-function initialize () {
-    movieSearch("You've Got Mail");
-    musicSearch("Barry Manilow");
+
+pairHistory.addEventListener('click', function(){
+    $("#selected-movie")
+        .empty();
+    $("#selected-album")
+        .empty();
+    
+
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        history.unshift(selectedPair);
+    }
+
+    for (var i in selectedPair.Album) {
+        selectedPair.Album[i] = "";
+    }
+
+    for (var j in selectedPair.Movie) {
+        selectedPair.Movie[j] = "";
+    }
+
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        console.log("test");
+        storeHistory();
+    }
     displayHistory();
+    initialize();
+})
+
+
+function initialize () {
+
+
+    $('#selected-movie')
+            .append(
+                `<div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">
+                            <i class="material-icons prefix ">movie</i>
+                        </span>
+                    <p>Search for the title of a movie and we recommend 10 options.
+                        When you find what you are looking for, select the movie you want
+                    </p>
+                    </div>
+                    <div class="card-action">
+                    <a href="#modal-movie" class="modal-trigger ">START </a>   
+                    </div>
+            </div>`)
+
+    $('#selected-album')
+            .append(
+                `<div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">
+                            <i class="material-icons prefix ">music_note</i>
+                        </span>
+                        <p>Search for the music artist you love and we recommend 10 options.
+                        When you find what you are looking for, select the album you want
+                        </p>
+                    </div>
+                <div class="card-action">
+                    <a href="#modal-music" class="modal-trigger">Search </a>        
+                </div>
+            </div>`)
+
 }
 
-initialize();

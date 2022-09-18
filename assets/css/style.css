@@ -1,9 +1,11 @@
 body{
-    background-image: url(../img/background.jpeg);
+    background-image: url(../img/Dan.jpeg);
     background-size: cover;      
 }
+
 .card{
     margin-top: 50px;
+    margin-bottom: 50px;
     background: rgba(0, 0, 0, 0.6);
 }
 
@@ -11,11 +13,17 @@ body{
     font-size: 20px;
 }
 
-.carousel {
+h2{
+    color: antiquewhite;
+    position: absolute;
+}
+
+ #movie-carousel {
     min-width: 500px;
     max-height: 500px;
 }
-.carousel .carousel-item{
+
+#movie-carousel .carousel-item{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,7 +34,7 @@ body{
     margin: 3px;
 }
 
-.carousel .carousel-item img{
+#movie-carousel .carousel-item img{
     width: 100%;
     height: 100%;
     position: absolute;
@@ -34,14 +42,28 @@ body{
     left: 0;
 }
 
-.card-image{
-    width: 20%;
-    height: 20%;
-}
+
 
 .buscador{
     border-radius: 10px;
 }
+
+#history-saved {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: auto;
+}
+
+#history-container .row .input-field img{
+    width: 300px;
+    height: 200px;
+    object-fit: fill;
+
+}
+
 
 
 @media screen and (min-width: 500px){
