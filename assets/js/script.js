@@ -42,7 +42,7 @@ function displayHistory() {
     for (var i = 0; i < history.length; i++) {
         $('#history-container')
             .append(
-                `<div class = "row">
+                `<div class = "row ">
                     <div class = "input-field col s2"></div>
                     <div class = "input-field col s4">
                         <a href = ${history[i].Movie.imdbLink} target = '_blank'>
@@ -66,7 +66,7 @@ function displaySelections (selectedPair) {
         .append(`<img class = "responsive-img  center-align" src = "${selectedPair.Movie.Poster}">`);
     $('#selected-album').empty();
     $('#selected-album')
-        .append(`<img id = "selected-album" class = "responsive-img  center-align" src = ${selectedPair.Album.AlbumCover}>`);
+        .append(`<img class = "responsive-img  center-align" src = ${selectedPair.Album.AlbumCover}>`);
 }
 
 
@@ -80,7 +80,7 @@ function movieDataDisplay(movie) {
             $('#active-movie-title').html(data.Title);
             $('#active-movie-year').html(data.Year);
             $('#active-movie-plot').html(data.Plot);
-            $('#active-movie-imdb').html("<a href = 'https://www.imdb.com/title/" + data.imdbID + "' target = '_blank'>IMDB Data</a>");
+            $('#active-movie-imdb').html("<a id = 'movieLink' href = 'https://www.imdb.com/title/" + data.imdbID + "' target = '_blank'>IMDB Data</a>");
         })
 }
 
@@ -121,7 +121,7 @@ function movieSearch(title) {
 //add selected movie to pair
 movieSelector.addEventListener('click', function () {
     selectedPair.Movie.Title = document.getElementById('active-movie-title').textContent;
-    selectedPair.Movie.imdbLink = document.getElementById('active-movie-imdb').href;
+    selectedPair.Movie.imdbLink = document.getElementById('movieLink').href;
     selectedPair.Movie.Poster = document.getElementById('active-movie-poster').src;
 
     displaySelections(selectedPair);
@@ -222,10 +222,11 @@ pairSelector.addEventListener('click', function(){
     $("#selected-album")
         .empty();
 
-    history.unshift(selectedPair);
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        history.unshift(selectedPair);
+    }
 
     storeHistory();
-    //displayHistory();
     initialize();
 
 })
@@ -236,10 +237,24 @@ pairHistory.addEventListener('click', function(){
         .empty();
     $("#selected-album")
         .empty();
+    
 
-    history.unshift(selectedPair);
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        history.unshift(selectedPair);
+    }
 
-    storeHistory();
+    for (var i in selectedPair.Album) {
+        selectedPair.Album[i] = "";
+    }
+
+    for (var j in selectedPair.Movie) {
+        selectedPair.Movie[j] = "";
+    }
+
+    if (selectedPair.Album.Title !== "" || selectedPair.Movie.Title !== "") {
+        console.log("test");
+        storeHistory();
+    }
     displayHistory();
     initialize();
 })
