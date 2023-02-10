@@ -12,7 +12,6 @@ Web application, hosted at: https://tomasdiaz83.github.io/TheMatchmakersWebsite/
 
 The following images show the web application's appearance and functionality:
 
-![An exampleof the web application in use.](./assets/images/Screenshot.png)
 ![Startup](./assets/screenshots/startup.png)
 ![Selection](./assets/screenshots/Selection1.png)
 ![Selection](./assets/screenshots/Selection2.png)
